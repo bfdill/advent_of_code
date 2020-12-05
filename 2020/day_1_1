@@ -1,0 +1,14 @@
+#!/bin/bash
+
+INPUT=day_1_input
+
+cat $INPUT | while read x
+do
+  cat $INPUT | grep -v $x | while read y
+  do
+    if [ "$((x+y))" -eq "2020" ];
+    then
+      echo $((x*y))
+    fi
+  done
+done

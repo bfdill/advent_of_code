@@ -1,0 +1,26 @@
+#!/bin/bash
+
+IFS=$'\r\n' GLOBIGNORE='*' command eval  'DATA=($(sort -n day_1_input))'
+LENGTH=${#DATA[@]}
+
+x=0
+
+while [[ $x -lt $LENGTH ]]
+do
+  ((y=$LENGTH - 1))
+  while [[ $y -ge 0 ]]
+  do
+    ((sum = ${DATA[x]} + ${DATA[y]}))
+
+    if [[ "$sum" == 2020 ]];
+    then
+      ((product = ${DATA[x]} * ${DATA[y]}))
+      echo $product
+      exit 0
+    fi
+
+    ((y = y - 1))
+  done
+
+  ((x = x + 1))
+done

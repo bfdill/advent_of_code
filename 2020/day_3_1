@@ -1,0 +1,15 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  column=1
+  count=0
+}
+NR == 1 { next }
+{
+  column += 3
+  if (column > 31) column -= 31
+  if (substr($1, column, 1) == "#") count++
+}
+END {
+  print count
+}

@@ -1,0 +1,8 @@
+#!/usr/bin/awk -f
+
+{
+  split($1, len, "-")
+  letter = substr($2, 1, length($2)-1)
+  result = gsub(letter, "", $3)
+  if (result >= len[1] && result <= len[2]) print $0
+}

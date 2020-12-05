@@ -1,0 +1,17 @@
+#!/bin/bash
+
+INPUT=day_1_input
+
+cat $INPUT | while read x
+do
+  cat $INPUT | grep -v $x | while read y
+  do
+    cat $INPUT | grep -v $x | grep -v $y | while read z
+    do
+      if [ "$((x+y+z))" -eq "2020" ];
+      then
+        echo $((x*y*z))
+      fi
+    done
+  done
+done

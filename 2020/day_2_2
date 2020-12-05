@@ -1,0 +1,9 @@
+#!/usr/bin/awk -f
+
+{
+  split($1, len, "-")
+  letter = substr($2, 1, length($2)-1)
+  a = substr($3, len[1], 1)
+  b = substr($3, len[2], 1)
+  if ((a == letter || b == letter) && (a != b)) print $0
+}

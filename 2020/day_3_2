@@ -1,0 +1,21 @@
+#!/usr/bin/awk -f
+
+# credit to https://github.com/phillbush/aoc/blob/master/2020/day03b
+# I was looking around at other people's awk solutions
+# and saw that day 3 solution before starting mine and then
+# this was all I could do... that is replicate that one.
+# so i just stopped working on mine, used theirs and
+# i figure no more looking ahead and full credit to him
+
+BEGIN                { FS = ""; ai = bi = ci = di = ei = 1 }
+$ai == "#"           { an++ }
+$bi == "#"           { bn++ }
+$ci == "#"           { cn++ }
+$di == "#"           { dn++ }
+$ei == "#" && NR % 2 { en++ }
+                     { ai = ((ai + 0) % NF) + 1 }
+                     { bi = ((bi + 2) % NF) + 1 }
+                     { ci = ((ci + 4) % NF) + 1 }
+                     { di = ((di + 6) % NF) + 1 }
+NR % 2               { ei = ((ei + 0) % NF) + 1 }
+END                  { print an * bn * cn * dn * en }

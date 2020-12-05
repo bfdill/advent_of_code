@@ -1,0 +1,6 @@
+#!/bin/bash
+
+UP=$(grep -o '(' day_1_input | wc -l)
+DOWN=$(grep -o ')' day_1_input | wc -l)
+((FLOOR=$UP - $DOWN))
+echo $FLOOR
