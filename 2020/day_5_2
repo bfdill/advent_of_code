@@ -1,0 +1,24 @@
+#!/usr/bin/awk -f
+
+# ./day_5_2 day_5_input | sort -n | awk '{for(i=p+1; i<$1; i++) print i} {p=$1}'
+
+{
+  row = substr($0, 1, 7)
+  gsub(/F/, "0", row)
+  gsub(/B/, "1", row)
+
+  column = substr($0, 8)
+  gsub(/L/, "0", column)
+  gsub(/R/, "1", column)
+
+  row = bin2num(row)
+  column = bin2num(column)
+  seat = (row * 8) + column
+
+  print seat
+
+  if (seat > hs) hs = seat
+}
+
+# https://unix.stackexchange.com/a/220009/174863
+func bin2num(i,t,a,c){a=1;for(c=length(i);c>0;c--){t+=substr(i,c,1)=="1"?a:0;a*=2}return t}
