@@ -1,0 +1,33 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  hs=0
+}
+{
+  row = substr($0, 1, 7)
+  gsub(/F/, "0", row)
+  gsub(/B/, "1", row)
+
+  column = substr($0, 8)
+  gsub(/L/, "0", column)
+  gsub(/R/, "1", column)
+
+  row = bin2num(row)
+  column = bin2num(column)
+  seat = (row * 8) + column
+
+  if (seat > hs) hs = seat
+}
+END {
+  print hs
+}
+
+# womp womp, probably shouldn't have used awk for this
+function bin2num(bits) {
+    cmd = "echo \"$((2#" bits "))\""
+
+    while ( ( cmd | getline result ) > 0 ) { }
+    close(cmd);
+
+    return result
+}
