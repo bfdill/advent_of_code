@@ -1,0 +1,24 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  RS=""
+  valid=0
+}
+{
+  delete record
+  f = 0
+  for (i = 1; i <= NF; i++) record[substr($i, 1, 3)] = substr($i, 5) 
+
+  if ("byr" in record) f++
+  if ("iyr" in record) f++
+  if ("eyr" in record) f++
+  if ("hgt" in record) f++
+  if ("hcl" in record) f++
+  if ("ecl" in record) f++
+  if ("pid" in record) f++
+
+  if (f == 7) valid++
+}
+END {
+  print valid
+}
