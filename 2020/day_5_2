@@ -16,8 +16,6 @@
   seat = (row * 8) + column
 
   print seat
-
-  if (seat > hs) hs = seat
 }
 
 # https://unix.stackexchange.com/a/220009/174863

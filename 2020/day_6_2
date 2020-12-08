@@ -1,0 +1,18 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  RS=""
+}
+/[a-z]/ {
+  delete record
+
+  for (i = 1; i <= NF; i++) 
+    for (c = 1; c <= length($i); c++) 
+      record[substr($i, c, 1)]++
+
+  for (l in record) 
+    if (record[l] == NF) total++
+}
+END {
+  print total
+}

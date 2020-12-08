@@ -1,0 +1,16 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  RS=""
+  FS=""
+}
+/[a-z]/ {
+  delete record
+  gsub(/\n/, "", $0)
+
+  for (i = 1; i <= NF; i++) record[$i]++
+  for (l in record) total++
+}
+END {
+  print total
+}
