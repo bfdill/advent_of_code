@@ -1,1 +1,21 @@
 #!/usr/bin/awk -f
+
+{
+  print $0
+
+  gsub(/ bags/, "", $0)
+  gsub(/ bag/, "", $0)
+  print $0
+
+
+  #gsub(/ bags contain [0-9] /, "|", $0)
+#  gsub(/ bags contain/, "|", $0)
+#  gsub(/ bags./, "", $0)
+#  gsub(/ bags/, "|", $0)
+#  gsub(/ bag.$/, "", $0)
+#  gsub(/ bag/, "|", $0)
+#  gsub(/[,]? [0-9][ ]?/, "", $0)
+#  print $0
+#  #print $0
+  #print $1 "-" $2 "-" $3 "-" $4 "-" $5
+}
