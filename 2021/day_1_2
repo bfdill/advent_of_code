@@ -1,0 +1,20 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  increases=0
+  window=3
+}
+
+{ vals[NR]=$1 }
+
+NR >= window { current=vals[NR - 2] + vals[NR - 1] + vals[NR] }
+
+current > 0 {
+  if (previous > 0 && current > previous) {
+    increases++
+  }
+
+  previous=current
+}
+
+END { print increases }
