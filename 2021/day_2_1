@@ -1,0 +1,9 @@
+#!/usr/bin/awk -f
+
+BEGIN { depth=0; horizontal=0 }
+
+/down/ { depth += $2 }
+/up/ { depth -= $2 }
+/forward/ { horizontal += $2 }
+
+END { print depth * horizontal }
