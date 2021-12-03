@@ -1,0 +1,21 @@
+#!/usr/bin/awk -f
+
+BEGIN {
+  FS="x"
+  sqft=0
+}
+
+{
+  l=$1; w=$2; h=$3
+
+  top = l * w
+  side = w * h
+  front = h * l
+
+  smallest = (side < front) ? side : front
+  smallest = (smallest < top) ? smallest : top
+
+  sqft += 2 * (side + front + top) + smallest
+}
+
+END { print sqft }
