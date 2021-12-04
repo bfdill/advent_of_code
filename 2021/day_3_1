@@ -1,0 +1,26 @@
+#!/usr/bin/awk -f
+
+BEGIN { gamma=""; epsilon="" }
+
+{
+  for (i = 1; i <= length($0); i++)
+    sums[sprintf("%s%s", i, substr($0, i, 1))]++
+}
+
+END { 
+  for (i = 1; i <= length(sums) / 2; i++)
+    updateGammaEpsilon(sums[sprintf("%s%s", i, 0)], sums[sprintf("%s%s", i, 1)])
+
+  print bin2dec(gamma) * bin2dec(epsilon)
+}
+
+func bin2dec(i,t,a,c){a=1;for(c=length(i);c>0;c--){t+=substr(i,c,1)=="1"?a:0;a*=2}return t}
+func updateGammaEpsilon(zero, one) {
+  if (zero > one) {
+    gamma = sprintf("%s%s", gamma, 0)
+    epsilon = sprintf("%s%s", epsilon, 1)
+  } else {
+    gamma = sprintf("%s%s", gamma, 1)
+    epsilon = sprintf("%s%s", epsilon, 0)
+  }
+}
