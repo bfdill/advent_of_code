@@ -19,7 +19,6 @@ const elves = {
 }
 
 const elfSorter = (elf, key = 'max') => {
-  console.log({ elves, elf })
   let tempElf = elf
 
   if (elves[key] === undefined) {
