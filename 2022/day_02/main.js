@@ -11,6 +11,27 @@ const hands = {
   Z: 'scissors'
 }
 
+const newHand = {
+  /* loss **/
+  AX: 'Z',
+  /* draw **/
+  AY: 'X',
+  /* win **/
+  AZ: 'Y',
+  /* loss **/
+  BX: 'X',
+  /* draw **/
+  BY: 'Y',
+  /* win **/
+  BZ: 'Z',
+  /* loss **/
+  CX: 'Y',
+  /* draw **/
+  CY: 'Z',
+  /* win **/
+  CZ: 'X'
+}
+
 const outcomes = {
   AX: 'draw',
   AY: 'win',
@@ -33,11 +54,17 @@ const scores = {
 }
 
 const processData = data => {
-  const result = data
+  const scorePart1 = data
     .map(x => x[0] + x[2])
     .map(x => (outcomes[x] === 'loss' ? scores[hands[x[1]]] : scores[outcomes[x]] + scores[hands[x[1]]]))
     .reduce((pv, cv) => pv + cv, 0)
-  console.log(result)
+
+  const scorePart2 = data
+    .map(x => x[0] + newHand[x[0] + x[2]])
+    .map(x => (outcomes[x] === 'loss' ? scores[hands[x[1]]] : scores[outcomes[x]] + scores[hands[x[1]]]))
+    .reduce((pv, cv) => pv + cv, 0)
+
+  console.log({ scorePart1, scorePart2 })
 }
 
 const main = async filename => {
