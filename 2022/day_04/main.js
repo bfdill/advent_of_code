@@ -10,17 +10,29 @@ const parseRow = row => {
 const getArrays = parsedRow => [range(parsedRow[0], parsedRow[1] + 1), range(parsedRow[2], parsedRow[3] + 1)]
 
 const processData = data => {
-  const results = data
+  const fullyContained = data
     .map(x => {
       const [one, two] = getArrays(parseRow(x))
       const intersection = one.filter(i => two.includes(i))
-      const fullyContained = intersection.length === one.length || intersection.length === two.length
+      const isFullyContained = intersection.length === one.length || intersection.length === two.length
 
-      return fullyContained
+      return isFullyContained
     })
     .filter(x => x)
 
-  console.log({ records: data.length, fullyContained: results.length })
+  console.log({ records: data.length, fullyContained: fullyContained.length })
+
+  const overlaps = data
+    .map(x => {
+      const [one, two] = getArrays(parseRow(x))
+      const intersection = one.filter(i => two.includes(i))
+      const hasOverlaps = intersection.length >= 1
+
+      return hasOverlaps
+    })
+    .filter(x => x)
+
+  console.log({ records: data.length, overlaps: overlaps.length })
 }
 
 const main = async filename => {
