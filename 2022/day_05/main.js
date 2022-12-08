@@ -23,19 +23,36 @@ const parseRow = row =>
     .filter(x => !Number.isNaN(x))
 
 // hell yeah!
-const applyMoves = (dock, moves) => {
+const applyMovesPart1 = (dock, moves) => {
   for (let i = 0; i < moves[0]; i++) {
     dock[moves[2] - 1].push(dock[moves[1] - 1].pop())
   }
 }
 
+const applyMovesPart2 = (dock, moves) => {
+  const crates = moves[0]
+  const sourceDock = moves[1] - 1
+  const targetDock = moves[2] - 1
+
+  dock[targetDock] = [...dock[targetDock], ...dock[sourceDock].slice(dock[sourceDock].length - crates)]
+  dock[sourceDock] = dock[sourceDock].slice(0, dock[sourceDock].length - crates)
+}
+
 const topRow = stack => stack.map(x => x[x.length - 1]).reduce((pv, cv) => pv + cv, '')
 
 const processData = (data, isSample) => {
-  const dock = JSON.parse(JSON.stringify(isSample ? sampleDock : realDock))
+  let dock = JSON.parse(JSON.stringify(isSample ? sampleDock : realDock))
 
   data.forEach(row => {
-    applyMoves(dock, parseRow(row))
+    applyMovesPart1(dock, parseRow(row))
+  })
+
+  console.log({ dock, top: topRow(dock) })
+
+  dock = JSON.parse(JSON.stringify(isSample ? sampleDock : realDock))
+
+  data.forEach(row => {
+    applyMovesPart2(dock, parseRow(row))
   })
 
   console.log({ dock, top: topRow(dock) })
