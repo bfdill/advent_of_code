@@ -27,6 +27,8 @@ class Node {
 // i'm just too lazy to write a class for file system
 const root = new Node(undefined, '/', undefined)
 let pwd = undefined
+const totalSpace = 70000000
+const requiredSpace = 30000000
 
 const cd = dir => (dir === '..' ? (pwd = pwd.parent) : (pwd = pwd.children.find(x => x.name === dir)))
 
@@ -85,6 +87,16 @@ const processData = data => {
     .reduce((pv, cv) => pv + cv, 0)
 
   console.log({ count: root.calculateChildrenSize(), flatTree })
+
+  const freeSpace = totalSpace - root.calculateChildrenSize()
+  const targetRemoval = requiredSpace - freeSpace
+
+  const flatTree2 = flattenTree(root)
+    .map(x => x.calculateChildrenSize())
+    .sort((a, b) => a - b)
+    .find(x => x > targetRemoval)
+
+  console.log({ flatTree2, freeSpace, targetRemoval })
 }
 
 const main = async filename => {
